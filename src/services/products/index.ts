@@ -1,0 +1,1 @@
+export { createProductService, type CreateProductData } from './create-product';
