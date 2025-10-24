@@ -6,7 +6,8 @@ import {
   updateProductService,
   hardDeleteProductService,
   softDeleteProductService,
-  restoreProductService
+  restoreProductService,
+  getProductByIdService
 } from '@/services/products';
 
 class ProductController {
@@ -20,6 +21,19 @@ class ProductController {
   // Get All Active Products
   async getAllActiveProducts(req: Request, res: Response) {
     const result = await getAllActiveProductsService();
+
+    return res.status(200).json(result);
+  }
+
+  // Get Product by ID
+  async getProductById(req: Request, res: Response) {
+    const { id } = req.body;
+
+    const result = await getProductByIdService(id);
+
+    if (result.status === "error") {
+      return res.status(400).json(result);
+    }
 
     return res.status(200).json(result);
   }
